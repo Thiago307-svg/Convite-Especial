@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Especial</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+body{background:#121212;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.phone-container{width:360px;height:700px;background:linear-gradient(180deg,#d32f2f 0%,#8e0000 100%);border-radius:40px;box-shadow:0 20px 40px rgba(0,0,0,.6);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;border:8px solid #222}
+.phone-container:before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:25px;background:#222;border-radius:15px;z-index:10}
+.screen{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;z-index:2}.hidden{display:none!important}.emoji{font-size:80px;margin-bottom:20px}h2{font-size:1.4rem;margin-bottom:20px;text-transform:uppercase;font-weight:800;letter-spacing:1px}p{font-size:1rem;line-height:1.5;max-width:280px}.btn-group{display:flex;gap:15px;margin-top:20px;position:relative;width:100%;justify-content:center}button{background:#fff;color:#d32f2f;border:none;padding:12px 24px;font-size:1rem;font-weight:bold;border-radius:25px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.3);transition:transform .1s}button:hover{transform:scale(1.05)}button:active{transform:scale(.95)}.date-time{width:100%;max-width:280px;margin-top:10px}.date-time label{display:block;text-align:left;font-size:.9rem;font-weight:bold;margin:10px 0 6px}.date-time input{width:100%;padding:12px;border:none;border-radius:12px;font-size:1rem;outline:none}.confirm-button{margin-top:20px}.confirmation-date{margin-top:10px;font-weight:bold}.error{color:#fff;font-size:.85rem;margin-top:10px;display:none}
+</style>
+</head>
+<body>
+<div class="phone-container">
+<div class="screen" id="telaInicial"><div class="emoji">❤️</div><h2>Convite Especial</h2><p>Tenho um convite muito especial para você. Quer aceitar?</p><div class="btn-group"><button onclick="aceitar()">SIM ❤️</button><button onclick="recusar()">NÃO</button></div></div>
+<div class="screen hidden" id="telaData"><div class="emoji">🥰</div><h2>Quando você está livre?</h2><p>Escolha uma data e um horário para o nosso encontro.</p><div class="date-time"><label for="data">Data:</label><input type="date" id="data"><label for="horario">Horário:</label><input type="time" id="horario"><div class="error" id="erro">Escolha uma data e um horário. ❤️</div></div><button class="confirm-button" onclick="confirmarEncontro()">CONFIRMAR ❤️</button></div>
+<div class="screen hidden" id="telaConfirmado"><div class="emoji">🎉</div><h2>Encontro Confirmado!</h2><p>Perfeito! Nosso encontro está marcado. ❤️</p><p class="confirmation-date" id="resumoEncontro"></p></div>
+<div class="screen hidden" id="telaNao"><div class="emoji">😭</div><h2>Tem certeza?</h2><p>Pense melhor... esse convite foi feito com muito carinho! ❤️</p><div class="btn-group"><button onclick="aceitar()">SIM ❤️</button><button onclick="voltar()">VOLTAR</button></div></div>
+</div>
+<script>
+function esconderTelas(){['telaInicial','telaData','telaConfirmado','telaNao'].forEach(id=>document.getElementById(id).classList.add('hidden'))}
+function aceitar(){esconderTelas();document.getElementById('telaData').classList.remove('hidden')}
+function recusar(){esconderTelas();document.getElementById('telaNao').classList.remove('hidden')}
+function voltar(){esconderTelas();document.getElementById('telaInicial').classList.remove('hidden')}
+function confirmarEncontro(){const data=document.getElementById('data').value;const horario=document.getElementById('horario').value;const erro=document.getElementById('erro');if(!data||!horario){erro.style.display='block';return}erro.style.display='none';const dataFormatada=new Date(data+'T00:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});document.getElementById('resumoEncontro').innerHTML='📅 '+dataFormatada+'<br>⏰ '+horario;esconderTelas();document.getElementById('telaConfirmado').classList.remove('hidden')}
+</script>
+</body>
+</html>
